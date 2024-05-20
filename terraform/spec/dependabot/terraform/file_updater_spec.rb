@@ -8,6 +8,13 @@ require "dependabot/terraform/file_updater"
 require_common_spec "file_updaters/shared_examples_for_file_updaters"
 
 RSpec.describe Dependabot::Terraform::FileUpdater do
+  let(:credentials) do
+    [{ "type" => "git_source", "host" => "github.com", "username" => "x-access-token", "password" => "token" }]
+  end
+  let(:dependencies) { [] }
+  let(:files) { project_dependency_files(project_name) }
+  let(:repo_contents_path) { build_tmp_repo(project_name) }
+  let(:project_name) { "" }
   it_behaves_like "a dependency file updater"
 
   subject(:updater) do
@@ -17,15 +24,6 @@ RSpec.describe Dependabot::Terraform::FileUpdater do
       credentials: credentials,
       repo_contents_path: repo_contents_path
     )
-  end
-
-  let(:project_name) { "" }
-  let(:repo_contents_path) { build_tmp_repo(project_name) }
-
-  let(:files) { project_dependency_files(project_name) }
-  let(:dependencies) { [] }
-  let(:credentials) do
-    [{ "type" => "git_source", "host" => "github.com", "username" => "x-access-token", "password" => "token" }]
   end
 
   describe "#updated_dependency_files" do

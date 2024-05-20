@@ -248,11 +248,6 @@ RSpec/IteratedExpectation:
 RSpec/LeadingSubject:
   Enabled: false
 
-# Offense count: 675
-# This cop supports safe autocorrection (--autocorrect).
-RSpec/LetBeforeExamples:
-  Enabled: false
-
 # Offense count: 141
 # This cop supports safe autocorrection (--autocorrect).
 RSpec/MatchArray:

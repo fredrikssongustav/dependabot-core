@@ -9,8 +9,15 @@ require "dependabot/npm_and_yarn/metadata_finder"
 require_common_spec "metadata_finders/shared_examples_for_metadata_finders"
 
 RSpec.describe Dependabot::NpmAndYarn::MetadataFinder do
-  it_behaves_like "a dependency metadata finder"
-
+  let(:dependency_name) { "etag" }
+  let(:credentials) do
+    [Dependabot::Credential.new({
+      "type" => "git_source",
+      "host" => "github.com",
+      "username" => "x-access-token",
+      "password" => "token"
+    })]
+  end
   let(:dependency) do
     Dependabot::Dependency.new(
       name: dependency_name,
@@ -21,18 +28,11 @@ RSpec.describe Dependabot::NpmAndYarn::MetadataFinder do
       package_manager: "npm_and_yarn"
     )
   end
+  it_behaves_like "a dependency metadata finder"
+
   subject(:finder) do
     described_class.new(dependency: dependency, credentials: credentials)
   end
-  let(:credentials) do
-    [Dependabot::Credential.new({
-      "type" => "git_source",
-      "host" => "github.com",
-      "username" => "x-access-token",
-      "password" => "token"
-    })]
-  end
-  let(:dependency_name) { "etag" }
 
   describe "#source_url" do
     subject(:source_url) { finder.source_url }

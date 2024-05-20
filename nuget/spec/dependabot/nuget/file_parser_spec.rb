@@ -14,20 +14,6 @@ RSpec.describe Dependabot::Nuget::FileParser do
     config.include(NuGetSearchStubs)
   end
 
-  it_behaves_like "a dependency file parser"
-
-  let(:files) { [csproj_file] + additional_files }
-  let(:additional_files) { [] }
-  let(:csproj_file) do
-    Dependabot::DependencyFile.new(name: "my.csproj", content: csproj_body)
-  end
-  let(:csproj_body) { fixture("csproj", "basic.csproj") }
-  let(:repo_contents_path) { write_tmp_repo(files) }
-  let(:parser) do
-    described_class.new(dependency_files: files,
-                        source: source,
-                        repo_contents_path: repo_contents_path)
-  end
   let(:source) do
     Dependabot::Source.new(
       provider: "github",
@@ -35,6 +21,19 @@ RSpec.describe Dependabot::Nuget::FileParser do
       directory: "/"
     )
   end
+  let(:parser) do
+    described_class.new(dependency_files: files,
+                        source: source,
+                        repo_contents_path: repo_contents_path)
+  end
+  let(:repo_contents_path) { write_tmp_repo(files) }
+  let(:csproj_body) { fixture("csproj", "basic.csproj") }
+  let(:csproj_file) do
+    Dependabot::DependencyFile.new(name: "my.csproj", content: csproj_body)
+  end
+  let(:additional_files) { [] }
+  let(:files) { [csproj_file] + additional_files }
+  it_behaves_like "a dependency file parser"
 
   describe "parse" do
     let(:dependencies) { parser.parse }

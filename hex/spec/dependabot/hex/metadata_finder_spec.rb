@@ -7,8 +7,16 @@ require "dependabot/hex/metadata_finder"
 require_common_spec "metadata_finders/shared_examples_for_metadata_finders"
 
 RSpec.describe Dependabot::Hex::MetadataFinder do
-  it_behaves_like "a dependency metadata finder"
-
+  let(:dependency_source) { nil }
+  let(:dependency_name) { "phoenix" }
+  let(:credentials) do
+    [{
+      "type" => "git_source",
+      "host" => "github.com",
+      "username" => "x-access-token",
+      "password" => "token"
+    }]
+  end
   let(:dependency) do
     Dependabot::Dependency.new(
       name: dependency_name,
@@ -22,19 +30,11 @@ RSpec.describe Dependabot::Hex::MetadataFinder do
       package_manager: "hex"
     )
   end
+  it_behaves_like "a dependency metadata finder"
+
   subject(:finder) do
     described_class.new(dependency: dependency, credentials: credentials)
   end
-  let(:credentials) do
-    [{
-      "type" => "git_source",
-      "host" => "github.com",
-      "username" => "x-access-token",
-      "password" => "token"
-    }]
-  end
-  let(:dependency_name) { "phoenix" }
-  let(:dependency_source) { nil }
 
   describe "#source_url" do
     subject(:source_url) { finder.source_url }

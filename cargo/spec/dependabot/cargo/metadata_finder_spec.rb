@@ -7,8 +7,16 @@ require "dependabot/cargo/metadata_finder"
 require_common_spec "metadata_finders/shared_examples_for_metadata_finders"
 
 RSpec.describe Dependabot::Cargo::MetadataFinder do
-  it_behaves_like "a dependency metadata finder"
-
+  let(:dependency_source) { nil }
+  let(:dependency_name) { "bitflags" }
+  let(:credentials) do
+    [{
+      "type" => "git_source",
+      "host" => "github.com",
+      "username" => "x-access-token",
+      "password" => "token"
+    }]
+  end
   let(:dependency) do
     Dependabot::Dependency.new(
       name: dependency_name,
@@ -22,19 +30,11 @@ RSpec.describe Dependabot::Cargo::MetadataFinder do
       package_manager: "cargo"
     )
   end
+  it_behaves_like "a dependency metadata finder"
+
   subject(:finder) do
     described_class.new(dependency: dependency, credentials: credentials)
   end
-  let(:credentials) do
-    [{
-      "type" => "git_source",
-      "host" => "github.com",
-      "username" => "x-access-token",
-      "password" => "token"
-    }]
-  end
-  let(:dependency_name) { "bitflags" }
-  let(:dependency_source) { nil }
 
   before do
     stub_request(:get, "https://example.com/status").to_return(
