@@ -125,9 +125,9 @@ RSpec.describe Dependabot::NpmAndYarn::FileParser do
         end
 
         context "that contains a version requirement string" do
+          subject { dependencies.find { |d| d.name == "etag" } }
           let(:files) { project_dependency_files("npm6/invalid_version_requirement") }
 
-          subject { dependencies.find { |d| d.name == "etag" } }
           it { is_expected.to eq(nil) }
         end
 

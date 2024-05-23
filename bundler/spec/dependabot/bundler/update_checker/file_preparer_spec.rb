@@ -66,8 +66,8 @@ RSpec.describe Dependabot::Bundler::UpdateChecker::FilePreparer do
         end
 
         context "with a gems.rb and gems.locked setup" do
-          let(:dependency_files) { bundler_project_dependency_files("gems_rb") }
           subject { prepared_dependency_files.find { |f| f.name == "gems.rb" } }
+          let(:dependency_files) { bundler_project_dependency_files("gems_rb") }
 
           it "returns the right files" do
             expect(prepared_dependency_files.map(&:name))
@@ -221,12 +221,11 @@ RSpec.describe Dependabot::Bundler::UpdateChecker::FilePreparer do
     end
 
     describe "the updated gemspec" do
-      let(:dependency_files) { bundler_project_dependency_files("gemfile_small_example") }
-      let(:version) { "1.4.3" }
-
       subject do
         prepared_dependency_files.find { |f| f.name == "example.gemspec" }
       end
+      let(:dependency_files) { bundler_project_dependency_files("gemfile_small_example") }
+      let(:version) { "1.4.3" }
 
       its(:content) { is_expected.to include("'business', '>= 1.4.3'\n") }
 
@@ -287,10 +286,10 @@ RSpec.describe Dependabot::Bundler::UpdateChecker::FilePreparer do
     end
 
     describe "the updated path gemspec" do
+      subject { prepared_dependency_files.find { |f| f.name == "some/example.gemspec" } }
       let(:dependency_files) do
         bundler_project_dependency_files("nested_gemspec")
       end
-      subject { prepared_dependency_files.find { |f| f.name == "some/example.gemspec" } }
       let(:version) { "1.4.3" }
 
       its(:content) { is_expected.to include(%("business", ">= 1.4.3")) }
@@ -305,12 +304,11 @@ RSpec.describe Dependabot::Bundler::UpdateChecker::FilePreparer do
     end
 
     describe "the updated child gemfile" do
-      let(:dependency_files) { bundler_project_dependency_files("nested_gemfile") }
-      let(:version) { "1.4.3" }
-
       subject do
         prepared_dependency_files.find { |f| f.name == "backend/Gemfile" }
       end
+      let(:dependency_files) { bundler_project_dependency_files("nested_gemfile") }
+      let(:version) { "1.4.3" }
 
       its(:content) { is_expected.to include(%("business", ">= 1.4.3")) }
       its(:content) { is_expected.to include(%("statesman", "~> 1.2.0")) }

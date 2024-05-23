@@ -43,6 +43,7 @@ RSpec.describe Dependabot::Nuget::RepositoryFinder do
   end
 
   describe "local path in NuGet.Config" do
+    subject(:known_repositories) { finder.known_repositories }
     let(:config_file) do
       nuget_config_content = <<~XML
         <configuration>
@@ -62,8 +63,6 @@ RSpec.describe Dependabot::Nuget::RepositoryFinder do
       )
     end
 
-    subject(:known_repositories) { finder.known_repositories }
-
     it "finds all local paths" do
       urls = known_repositories.map { |r| r[:url] }
       expected = [
@@ -77,6 +76,7 @@ RSpec.describe Dependabot::Nuget::RepositoryFinder do
   end
 
   describe "environment variables in NuGet.Config" do
+    subject(:known_repositories) { finder.known_repositories }
     let(:config_file) do
       nuget_config_content = <<~XML
         <configuration>
@@ -97,8 +97,6 @@ RSpec.describe Dependabot::Nuget::RepositoryFinder do
         content: nuget_config_content
       )
     end
-
-    subject(:known_repositories) { finder.known_repositories }
 
     context "are expanded" do
       before do

@@ -126,11 +126,6 @@ RSpec.describe Dependabot::SharedHelpers do
   end
 
   describe ".run_helper_subprocess" do
-    let(:function) { "example" }
-    let(:args) { ["foo"] }
-    let(:env) { nil }
-    let(:stderr_to_stdout) { false }
-
     subject(:run_subprocess) do
       bin_path = File.join(spec_root, "helpers/test/run.rb")
       command = "ruby #{bin_path}"
@@ -142,6 +137,10 @@ RSpec.describe Dependabot::SharedHelpers do
         stderr_to_stdout: stderr_to_stdout
       )
     end
+    let(:function) { "example" }
+    let(:args) { ["foo"] }
+    let(:env) { nil }
+    let(:stderr_to_stdout) { false }
 
     context "when the subprocess is successful" do
       it "returns the result" do
@@ -216,12 +215,11 @@ RSpec.describe Dependabot::SharedHelpers do
   end
 
   describe ".run_shell_command" do
-    let(:command) { File.join(spec_root, "helpers/test/run_bash") + " output" }
-    let(:env) { nil }
-
     subject(:run_shell_command) do
       Dependabot::SharedHelpers.run_shell_command(command, env: env)
     end
+    let(:command) { File.join(spec_root, "helpers/test/run_bash") + " output" }
+    let(:env) { nil }
 
     context "when the subprocess is successful" do
       it "returns the result" do
@@ -291,11 +289,10 @@ RSpec.describe Dependabot::SharedHelpers do
   end
 
   describe ".escape_command" do
-    let(:command) { "yes | foo=1 &  'na=1'  name  > file" }
-
     subject(:escape_command) do
       Dependabot::SharedHelpers.escape_command(command)
     end
+    let(:command) { "yes | foo=1 &  'na=1'  name  > file" }
 
     it do
       is_expected.to eq("yes \\| foo\\=1 \\& \\'na\\=1\\' name \\> file")

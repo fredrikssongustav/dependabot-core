@@ -76,8 +76,8 @@ RSpec.describe Dependabot::Bundler::FileParser do
 
     context "with no version specified" do
       describe "the first dependency" do
-        let(:dependency_files) { bundler_project_dependency_files("version_not_specified") }
         subject { dependencies.first }
+        let(:dependency_files) { bundler_project_dependency_files("version_not_specified") }
         let(:expected_requirements) do
           [{
             requirement: ">= 0",
@@ -234,9 +234,9 @@ RSpec.describe Dependabot::Bundler::FileParser do
       end
 
       describe "a github dependency", :bundler_v1_only do
+        subject { dependencies.find { |d| d.name == "business" } }
         let(:dependency_files) { bundler_project_dependency_files("github_source") }
 
-        subject { dependencies.find { |d| d.name == "business" } }
         let(:expected_requirements) do
           [{
             requirement: ">= 0",
@@ -259,9 +259,9 @@ RSpec.describe Dependabot::Bundler::FileParser do
       end
 
       describe "a github dependency", :bundler_v2_only do
+        subject { dependencies.find { |d| d.name == "business" } }
         let(:dependency_files) { bundler_project_dependency_files("github_source") }
 
-        subject { dependencies.find { |d| d.name == "business" } }
         let(:expected_requirements) do
           [{
             requirement: ">= 0",
@@ -284,9 +284,9 @@ RSpec.describe Dependabot::Bundler::FileParser do
       end
 
       context "with a subdependency of a git source", :bundler_v1_only do
+        subject { dependencies.find { |d| d.name == "kaminari-actionview" } }
         let(:dependency_files) { bundler_project_dependency_files("git_source_undeclared") }
 
-        subject { dependencies.find { |d| d.name == "kaminari-actionview" } }
         let(:expected_requirements) do
           [{
             requirement: ">= 0",
@@ -307,9 +307,9 @@ RSpec.describe Dependabot::Bundler::FileParser do
       end
 
       context "with a subdependency of a git source", :bundler_v2_only do
+        subject { dependencies.find { |d| d.name == "kaminari-actionview" } }
         let(:dependency_files) { bundler_project_dependency_files("git_source_undeclared") }
 
-        subject { dependencies.find { |d| d.name == "kaminari-actionview" } }
         let(:expected_requirements) do
           [{
             requirement: ">= 0",
