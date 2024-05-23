@@ -174,7 +174,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
         bundler_project_dependency_file("comments_no_lockfile", filename: "Gemfile")
       end
       it do
-        is_expected.to include "\"business\", \"~> 1.5.0\"   # Business time"
+        expect(subject).to include "\"business\", \"~> 1.5.0\"   # Business time"
       end
     end
 
@@ -272,7 +272,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
       end
 
       it do
-        is_expected.to include(
+        expect(subject).to include(
           "\"dependabot-test-ruby-package\", \"~> 1.1.0\", git"
         )
       end
@@ -318,7 +318,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
           end
 
           it "leaves the evaled gemfile untouched" do
-            is_expected.to eq(gemfile_body)
+            expect(subject).to eq(gemfile_body)
           end
         end
       end
@@ -344,7 +344,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
         end
 
         it do
-          is_expected.to include(
+          expect(subject).to include(
             "\"dependabot-test-ruby-package\", \"~> 1.1.0\""
           )
         end
@@ -369,7 +369,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
             Dependabot::DependencyFile.new(content: gemfile_body, name: "Gemfile")
           end
           it do
-            is_expected.to eq(
+            expect(subject).to eq(
               %(gem "dependabot-test-ruby-package", "~> 1.1.0", require: false)
             )
           end
@@ -384,7 +384,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
             Dependabot::DependencyFile.new(content: gemfile_body, name: "Gemfile")
           end
           it do
-            is_expected.to eq(
+            expect(subject).to eq(
               %(gem "dependabot-test-ruby-package", "~> 1.1.0", require: false)
             )
           end
@@ -399,7 +399,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
             Dependabot::DependencyFile.new(content: gemfile_body, name: "Gemfile")
           end
           it do
-            is_expected.to eq(
+            expect(subject).to eq(
               %(gem("dependabot-test-ruby-package", "~> 1.1.0", require: false))
             )
           end
@@ -414,7 +414,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
             Dependabot::DependencyFile.new(content: gemfile_body, name: "Gemfile")
           end
           it do
-            is_expected.to eq(
+            expect(subject).to eq(
               %(gem "dependabot-test-ruby-package", '~> 1.1.0', require: false)
             )
           end
@@ -428,7 +428,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
             Dependabot::DependencyFile.new(content: gemfile_body, name: "Gemfile")
           end
           it do
-            is_expected.to eq(%(gem "dependabot-test-ruby-package", "~> 1.1.0"))
+            expect(subject).to eq(%(gem "dependabot-test-ruby-package", "~> 1.1.0"))
           end
         end
 
@@ -440,7 +440,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemfileUpdater do
             Dependabot::DependencyFile.new(content: gemfile_body, name: "Gemfile")
           end
           it do
-            is_expected.to eq(%(gem "dependabot-test-ruby-package" # My gem))
+            expect(subject).to eq(%(gem "dependabot-test-ruby-package" # My gem))
           end
         end
       end

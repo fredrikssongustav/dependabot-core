@@ -31,7 +31,7 @@ RSpec.describe Dependabot::DependabotError do
       end
 
       it do
-        is_expected.to eq(
+        expect(subject).to eq(
           "Error (/Users/x/code/dependabot-core/cargo/dependabot_tmp_dir) " \
           "failed to load https://github.com/dependabot"
         )
@@ -121,7 +121,7 @@ RSpec.describe Dependabot::PrivateSourceAuthenticationFailure do
     subject { error.message }
 
     it do
-      is_expected.to eq(
+      expect(subject).to eq(
         "The following source could not be reached as it requires authentication (and any provided details were " \
         "invalid or lacked the required permissions): source"
       )
@@ -133,7 +133,7 @@ RSpec.describe Dependabot::PrivateSourceAuthenticationFailure do
       end
 
       it do
-        is_expected.to eq(
+        expect(subject).to eq(
           "The following source could not be reached as it requires authentication (and any provided details were " \
           "invalid or lacked the required permissions): npm.fury.io/<redacted>"
         )
@@ -150,7 +150,7 @@ RSpec.describe Dependabot::PrivateSourceTimedOut do
     subject { error.message }
 
     it do
-      is_expected.to eq(
+      expect(subject).to eq(
         "The following source timed out: source"
       )
     end
@@ -161,7 +161,7 @@ RSpec.describe Dependabot::PrivateSourceTimedOut do
       end
 
       it do
-        is_expected.to eq(
+        expect(subject).to eq(
           "The following source timed out: npm.fury.io/<redacted>"
         )
       end
@@ -177,7 +177,7 @@ RSpec.describe Dependabot::PrivateSourceCertificateFailure do
     subject { error.message }
 
     it do
-      is_expected.to eq(
+      expect(subject).to eq(
         "Could not verify the SSL certificate for source"
       )
     end
@@ -188,7 +188,7 @@ RSpec.describe Dependabot::PrivateSourceCertificateFailure do
       end
 
       it do
-        is_expected.to eq(
+        expect(subject).to eq(
           "Could not verify the SSL certificate for npm.fury.io/<redacted>"
         )
       end
@@ -206,7 +206,7 @@ RSpec.describe Dependabot::GitDependenciesNotReachable do
     subject { error.message }
 
     it do
-      is_expected.to eq(
+      expect(subject).to eq(
         "The following git URLs could not be retrieved: " \
         "https://bitbucket.org/gocardless/"
       )

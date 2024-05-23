@@ -24,7 +24,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemspecSanitizer do
       end
 
       it do
-        is_expected.to eq(
+        expect(subject).to eq(
           "begin\n" \
           "require 'example/version'\n" \
           "rescue LoadError\n" \
@@ -40,7 +40,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemspecSanitizer do
       end
 
       it do
-        is_expected.to eq(
+        expect(subject).to eq(
           "begin\n" \
           "require_relative 'example/version'\n" \
           "rescue LoadError\n" \
@@ -61,7 +61,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemspecSanitizer do
           %(version = File.readlines("something").grep(/\S+/)\ncode = "require")
         end
         it do
-          is_expected
+          expect(subject)
             .to eq(%(version = ["1.5.0"].grep(/\S+/)\ncode = "require"))
         end
       end
@@ -78,7 +78,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemspecSanitizer do
           %(version = File.readlines("something").grep(/\S+/)\ncode = "require")
         end
         it do
-          is_expected
+          expect(subject)
             .to eq(%(version = ["1.5.0"].grep(/\S+/)\ncode = "require"))
         end
       end
@@ -96,7 +96,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemspecSanitizer do
         %(Spec.new { |s| s.version = "0.1.0"\n s.post_install_message = "a" })
       end
       it do
-        is_expected.to eq(%(Spec.new { |s| s.version = "0.1.0"\n "sanitized" }))
+        expect(subject).to eq(%(Spec.new { |s| s.version = "0.1.0"\n "sanitized" }))
       end
 
       context "when that uses a conditional" do
@@ -178,7 +178,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemspecSanitizer do
             %(Spec.new { |s| s.version = Example::VERSION.dup }.tap { |a| "h" })
           end
           it do
-            is_expected.to eq(
+            expect(subject).to eq(
               %(Spec.new { |s| s.version = "1.5.0" }.tap { |a| "h" })
             )
           end
@@ -188,7 +188,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemspecSanitizer do
       context "with an assignment to a variable" do
         let(:content) { "v = 'a'\n\nSpec.new { |s| s.version = v }" }
         it do
-          is_expected.to eq(%(v = 'a'\n\nSpec.new { |s| s.version = "1.5.0" }))
+          expect(subject).to eq(%(v = 'a'\n\nSpec.new { |s| s.version = "1.5.0" }))
         end
       end
 
@@ -212,7 +212,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater::GemspecSanitizer do
       context "with an assignment to a File.read" do
         let(:content) { "Spec.new { |s| s.version = File.read('something') }" }
         it do
-          is_expected.to eq(%(Spec.new { |s| s.version = "1.5.0" }))
+          expect(subject).to eq(%(Spec.new { |s| s.version = "1.5.0" }))
         end
       end
 

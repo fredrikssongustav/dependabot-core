@@ -385,7 +385,7 @@ RSpec.describe Dependabot::Bundler::UpdateChecker do
       end
 
       it "finds the lowest available non-vulnerable version" do
-        is_expected.to eq(Gem::Version.new("1.3.0"))
+        expect(subject).to eq(Gem::Version.new("1.3.0"))
       end
 
       context "with a security vulnerability" do
@@ -400,7 +400,7 @@ RSpec.describe Dependabot::Bundler::UpdateChecker do
         end
 
         it "finds the lowest available non-vulnerable version" do
-          is_expected.to eq(Gem::Version.new("1.4.0"))
+          expect(subject).to eq(Gem::Version.new("1.4.0"))
         end
       end
     end
@@ -593,7 +593,7 @@ RSpec.describe Dependabot::Bundler::UpdateChecker do
     end
 
     it do
-      is_expected.to eq(
+      expect(subject).to eq(
         [{
           "explanation" => "dummy-pkg-b (1.0.0) requires dummy-pkg-a (< 2.0.0)",
           "name" => "dummy-pkg-b",
@@ -1219,7 +1219,7 @@ RSpec.describe Dependabot::Bundler::UpdateChecker do
 
         it "Gem version is 2.0.1" do
           skip "This test intermittently fails, which often trips up external contributors"
-          is_expected.to eq(Gem::Version.new("2.0.1"))
+          expect(subject).to eq(Gem::Version.new("2.0.1"))
         end
       end
     end

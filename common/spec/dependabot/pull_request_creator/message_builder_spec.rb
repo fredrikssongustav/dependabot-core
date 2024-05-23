@@ -192,7 +192,7 @@ RSpec.describe Dependabot::PullRequestCreator::MessageBuilder do
           let(:commits_response) { fixture("github", "commits_prefixed.json") }
 
           it {
-            is_expected.to eq("build(deps): bump business from 1.4.0 to 1.5.0")
+            expect(subject).to eq("build(deps): bump business from 1.4.0 to 1.5.0")
           }
         end
 
@@ -491,7 +491,7 @@ RSpec.describe Dependabot::PullRequestCreator::MessageBuilder do
         end
 
         it do
-          is_expected.to eq("chore(deps): bump business from 1.4.0 to 1.5.0")
+          expect(subject).to eq("chore(deps): bump business from 1.4.0 to 1.5.0")
         end
 
         context "and capitalizes them" do
@@ -505,7 +505,7 @@ RSpec.describe Dependabot::PullRequestCreator::MessageBuilder do
           end
 
           it do
-            is_expected.to eq("Chore(deps): Bump business from 1.4.0 to 1.5.0")
+            expect(subject).to eq("Chore(deps): Bump business from 1.4.0 to 1.5.0")
           end
         end
 
@@ -520,14 +520,14 @@ RSpec.describe Dependabot::PullRequestCreator::MessageBuilder do
           end
 
           it do
-            is_expected.to eq("chore(deps): Bump business from 1.4.0 to 1.5.0")
+            expect(subject).to eq("chore(deps): Bump business from 1.4.0 to 1.5.0")
           end
 
           context "and with commit messages explicitly configured" do
             let(:commit_message_options) { super().merge(prefix: "chore(dependencies)") }
 
             it do
-              is_expected.to eq("chore(dependencies): Bump business from 1.4.0 to 1.5.0")
+              expect(subject).to eq("chore(dependencies): Bump business from 1.4.0 to 1.5.0")
             end
           end
         end
@@ -572,7 +572,7 @@ RSpec.describe Dependabot::PullRequestCreator::MessageBuilder do
         end
 
         it do
-          is_expected.to eq("Upgrade: Bump business from 1.4.0 to 1.5.0")
+          expect(subject).to eq("Upgrade: Bump business from 1.4.0 to 1.5.0")
         end
 
         context "with a security vulnerability fixed" do
@@ -601,7 +601,7 @@ RSpec.describe Dependabot::PullRequestCreator::MessageBuilder do
         include_context "with multiple git sources"
 
         it "has the correct name" do
-          is_expected.to eq(
+          expect(subject).to eq(
             "Update actions/checkout requirement to v2.2.0"
           )
         end
@@ -3316,7 +3316,7 @@ RSpec.describe Dependabot::PullRequestCreator::MessageBuilder do
     end
 
     it "renders the expected message" do
-      is_expected.to eql(expected_commit_message)
+      expect(subject).to eql(expected_commit_message)
     end
 
     context "with a PR name that is too long" do
@@ -3433,13 +3433,13 @@ RSpec.describe Dependabot::PullRequestCreator::MessageBuilder do
       end
 
       it "uses gitmoji" do
-        is_expected.to start_with(":arrow_up: Bump ")
+        expect(subject).to start_with(":arrow_up: Bump ")
       end
 
       context "with a security vulnerability fixed" do
         let(:vulnerabilities_fixed) { { business: [{}] } }
         it "uses gitmoji" do
-          is_expected.to start_with(":arrow_up::lock: Bump ")
+          expect(subject).to start_with(":arrow_up::lock: Bump ")
         end
       end
     end

@@ -551,7 +551,7 @@ RSpec.describe Dependabot::GithubActions::UpdateChecker do
 
     context "when a supported newer version is available" do
       it "updates to the least new supported version" do
-        is_expected.to eq(Dependabot::GithubActions::Version.new("1.0.0"))
+        expect(subject).to eq(Dependabot::GithubActions::Version.new("1.0.0"))
       end
     end
 
@@ -559,7 +559,7 @@ RSpec.describe Dependabot::GithubActions::UpdateChecker do
       let(:ignored_versions) { ["= 1.0.0"] }
 
       it "doesn't return ignored versions" do
-        is_expected.to eq(Dependabot::GithubActions::Version.new("2.0.0"))
+        expect(subject).to eq(Dependabot::GithubActions::Version.new("2.0.0"))
       end
     end
 
@@ -578,7 +578,7 @@ RSpec.describe Dependabot::GithubActions::UpdateChecker do
       end
 
       it "still proposes an upgrade" do
-        is_expected.to eq(Dependabot::GithubActions::Version.new("2.0.0"))
+        expect(subject).to eq(Dependabot::GithubActions::Version.new("2.0.0"))
       end
     end
   end

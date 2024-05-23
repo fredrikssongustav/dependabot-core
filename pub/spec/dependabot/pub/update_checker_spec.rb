@@ -506,7 +506,7 @@ RSpec.describe Dependabot::Pub::UpdateChecker do
     end
     context "when a newer non-vulnerable version is available" do
       it "updates to the lowest non-vulnerable version" do
-        is_expected.to eq(Gem::Version.new("3.0.0"))
+        expect(subject).to eq(Gem::Version.new("3.0.0"))
       end
     end
 
@@ -579,7 +579,7 @@ RSpec.describe Dependabot::Pub::UpdateChecker do
 
     # TODO: Implement https://github.com/dependabot/dependabot-core/issues/5391, then flip "highest" to "lowest"
     it "keeps current version if it is not vulnerable" do
-      is_expected.to eq(Gem::Version.new("2.0.0"))
+      expect(subject).to eq(Gem::Version.new("2.0.0"))
     end
 
     context "with a security vulnerability on older versions" do
@@ -594,7 +594,7 @@ RSpec.describe Dependabot::Pub::UpdateChecker do
       end
 
       it "finds the lowest available non-vulnerable version" do
-        is_expected.to eq(Gem::Version.new("3.0.0"))
+        expect(subject).to eq(Gem::Version.new("3.0.0"))
       end
 
       # it "returns nil for git versions" # tested elsewhere under `context "With a git dependency"`

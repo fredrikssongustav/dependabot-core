@@ -298,7 +298,7 @@ RSpec.describe Dependabot::SharedHelpers do
     end
 
     it do
-      is_expected.to eq("yes \\| foo\\=1 \\& \\'na\\=1\\' name \\> file")
+      expect(subject).to eq("yes \\| foo\\=1 \\& \\'na\\=1\\' name \\> file")
     end
 
     context "when empty" do

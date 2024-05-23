@@ -70,7 +70,7 @@ RSpec.describe Dependabot::GoModules::Requirement do
           context "for a pre-1.0.0 release" do
             let(:requirement_string) { "^0.0.*" }
             it do
-              is_expected.to eq(described_class.new(">= 0.0.0", "< 1.0.0.a"))
+              expect(subject).to eq(described_class.new(">= 0.0.0", "< 1.0.0.a"))
             end
 
             context "with a pre-release specifier" do
@@ -123,7 +123,7 @@ RSpec.describe Dependabot::GoModules::Requirement do
           context "and a zero minor" do
             let(:requirement_string) { "^0.0.3" }
             it do
-              is_expected.to eq(described_class.new(">= 0.0.3", "< 1.0.0.a"))
+              expect(subject).to eq(described_class.new(">= 0.0.3", "< 1.0.0.a"))
             end
           end
         end
