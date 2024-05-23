@@ -153,12 +153,8 @@ RSpec.describe Dependabot::Python::RequirementParser do
           "luigi==0.1.0 --hash=sha256:2ccb79b01 --hash=sha256:2ccb79b02"
         end
         its([:hashes]) do
-          is_expected.to match_array(
-            [
-              { algorithm: "sha256", hash: "2ccb79b01" },
-              { algorithm: "sha256", hash: "2ccb79b02" }
-            ]
-          )
+          is_expected.to contain_exactly({ algorithm: "sha256", hash: "2ccb79b01" },
+                                         { algorithm: "sha256", hash: "2ccb79b02" })
         end
 
         context "spread over multiple lines" do
@@ -169,12 +165,8 @@ RSpec.describe Dependabot::Python::RequirementParser do
           end
 
           its([:hashes]) do
-            is_expected.to match_array(
-              [
-                { algorithm: "sha256", hash: "2ccb79b01" },
-                { algorithm: "sha256", hash: "2ccb79b02" }
-              ]
-            )
+            is_expected.to contain_exactly({ algorithm: "sha256", hash: "2ccb79b01" },
+                                           { algorithm: "sha256", hash: "2ccb79b02" })
           end
         end
 
@@ -190,12 +182,8 @@ RSpec.describe Dependabot::Python::RequirementParser do
             is_expected.to eq "python_version=='2.7'"
           end
           its([:hashes]) do
-            is_expected.to match_array(
-              [
-                { algorithm: "sha256", hash: "2ccb79b01" },
-                { algorithm: "sha256", hash: "2ccb79b02" }
-              ]
-            )
+            is_expected.to contain_exactly({ algorithm: "sha256", hash: "2ccb79b01" },
+                                           { algorithm: "sha256", hash: "2ccb79b02" })
           end
         end
 
@@ -212,12 +200,8 @@ RSpec.describe Dependabot::Python::RequirementParser do
             is_expected.to eq "python_version=='2.7'"
           end
           its([:hashes]) do
-            is_expected.to match_array(
-              [
-                { algorithm: "sha256", hash: "2ccb79b01" },
-                { algorithm: "sha256", hash: "2ccb79b02" }
-              ]
-            )
+            is_expected.to contain_exactly({ algorithm: "sha256", hash: "2ccb79b01" },
+                                           { algorithm: "sha256", hash: "2ccb79b02" })
           end
         end
       end

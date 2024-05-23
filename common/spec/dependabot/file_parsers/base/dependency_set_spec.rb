@@ -112,7 +112,7 @@ RSpec.describe Dependabot::FileParsers::Base::DependencySet do
 
         it { is_expected.to be_a(described_class) }
         its(:dependencies) do
-          is_expected.to match_array([existing_dependency, dependency])
+          is_expected.to contain_exactly(existing_dependency, dependency)
         end
       end
 
@@ -132,12 +132,8 @@ RSpec.describe Dependabot::FileParsers::Base::DependencySet do
         it "has a single dependency with the combined requirements" do
           expect(subject.dependencies.count).to eq(1)
           expect(subject.dependencies.first.requirements)
-            .to match_array(
-              [
-                { requirement: "1", file: "a", groups: nil, source: nil },
-                { requirement: "1", file: "b", groups: nil, source: nil }
-              ]
-            )
+            .to contain_exactly({ requirement: "1", file: "a", groups: nil, source: nil },
+                                { requirement: "1", file: "b", groups: nil, source: nil })
         end
       end
 

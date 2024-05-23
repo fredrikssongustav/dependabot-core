@@ -1012,7 +1012,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater do
 
           it "returns an updated Gemfile and Gemfile.lock" do
             expect(updated_files.map(&:name))
-              .to match_array(["Gemfile", "Gemfile.lock"])
+              .to contain_exactly("Gemfile", "Gemfile.lock")
           end
 
           context "with a tricky ruby requirement" do
@@ -1020,7 +1020,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater do
 
             it "returns an updated Gemfile and Gemfile.lock" do
               expect(updated_files.map(&:name))
-                .to match_array(["Gemfile", "Gemfile.lock"])
+                .to contain_exactly("Gemfile", "Gemfile.lock")
             end
           end
         end
@@ -1060,7 +1060,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater do
 
           it "returns an updated gemspec, Gemfile and Gemfile.lock" do
             expect(updated_files.map(&:name))
-              .to match_array(["Gemfile", "Gemfile.lock", "example.gemspec"])
+              .to contain_exactly("Gemfile", "Gemfile.lock", "example.gemspec")
           end
 
           context "when the gemspec constraint is already satisfied" do
@@ -1068,7 +1068,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater do
 
             it "returns an updated Gemfile and Gemfile.lock" do
               expect(updated_files.map(&:name))
-                .to match_array(["Gemfile", "Gemfile.lock"])
+                .to contain_exactly("Gemfile", "Gemfile.lock")
             end
           end
 
@@ -1137,7 +1137,7 @@ RSpec.describe Dependabot::Bundler::FileUpdater do
 
             it "returns an updated gemspec and Gemfile.lock" do
               expect(updated_files.map(&:name))
-                .to match_array(["example.gemspec", "Gemfile.lock"])
+                .to contain_exactly("example.gemspec", "Gemfile.lock")
             end
           end
         end
@@ -1473,14 +1473,13 @@ RSpec.describe Dependabot::Bundler::FileUpdater do
       end
 
       it "vendors the new dependency" do
-        expect(updater.updated_dependency_files.map(&:name)).to match_array(
-          [
+        expect(updater.updated_dependency_files.map(&:name))
+          .to contain_exactly(
             "vendor/cache/business-1.4.0.gem",
             "vendor/cache/business-1.5.0.gem",
             "Gemfile",
             "Gemfile.lock"
-          ]
-        )
+          )
       end
 
       it "base64 encodes vendored gems" do
@@ -1564,8 +1563,8 @@ RSpec.describe Dependabot::Bundler::FileUpdater do
         added = "vendor/cache/dependabot-test-ruby-package-1c6331732c41"
 
         it "vendors the new dependency" do
-          expect(updater.updated_dependency_files.map(&:name)).to match_array(
-            [
+          expect(updater.updated_dependency_files.map(&:name))
+            .to contain_exactly(
               "#{removed}/.bundlecache",
               "#{removed}/README.md",
               "#{removed}/test-ruby-package.gemspec",
@@ -1573,11 +1572,9 @@ RSpec.describe Dependabot::Bundler::FileUpdater do
               "#{added}/.gitignore",
               "#{added}/README.md",
               "#{added}/dependabot-test-ruby-package.gemspec",
-              # modified:
               "Gemfile",
               "Gemfile.lock"
-            ]
-          )
+            )
         end
 
         it "deletes the old vendored repo" do
@@ -1615,14 +1612,13 @@ RSpec.describe Dependabot::Bundler::FileUpdater do
       end
 
       it "vendors the new dependency" do
-        expect(updater.updated_dependency_files.map(&:name)).to match_array(
-          [
+        expect(updater.updated_dependency_files.map(&:name))
+          .to contain_exactly(
             "vendor/cache/business-1.4.0.gem",
             "vendor/cache/business-1.5.0.gem",
             "Gemfile",
             "Gemfile.lock"
-          ]
-        )
+          )
       end
     end
   end
